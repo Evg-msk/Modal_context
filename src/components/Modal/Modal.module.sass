@@ -1,0 +1,68 @@
+.overlay
+	top: 0
+	right: 0
+	left: 0
+	bottom: 0
+	background-color: rgba(0, 0, 0, .56)
+	position: fixed
+	width: 100%
+	height: 100vh
+	z-index: 99
+	animation: showOverlay .4s ease-out
+.Modal
+	padding: 20px 0
+	display: flex
+	flex-direction: column
+	justify-content: center
+	align-items: center
+	margin: 10% auto
+	width: 40%
+	height: 350px
+	font-size: 25px
+	border: 1px solid gray
+	border-radius: 25px
+	box-shadow: 1px 1px 7px gray
+	background: linear-gradient(270deg, #cef2fa 0%, #59bfef 100%)
+	animation: dropModal .4s ease-out
+	&__buttons
+		margin-top: 30%
+.btn_yes,
+.btn_no
+	width: 100px
+	height: 30px
+	border-radius: 10px
+	border: none
+	box-shadow: 1px 4px 5px #4a1470
+	background: linear-gradient(90deg, #e7c8ff 0%, #ff777d 100%)
+	cursor: pointer
+	transition: all .2s
+	&:first-child
+		margin-right: 25px
+	&:focus
+		outline: none
+
+.btn_yes
+	&:hover
+		color: #fff
+		background: #dc322a
+.btn_no
+	background: #7f7b7b
+	color: #fff
+	&:hover
+		background: #5adc92
+.hide
+	display: none
+
+@keyframes showOverlay
+	0%
+		opacity: 0
+	100%
+		opacity: 1
+
+@keyframes dropModal
+	0%
+		opacity: 0
+		transform: translateY(-500px)
+	100%
+		opacity: 1
+		transform: translateY(0)
