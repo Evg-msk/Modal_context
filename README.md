@@ -1,4 +1,4 @@
-#React Promise Modal with Context
+# React Promise Modal with Context
 This project implemented with:
 `react hooks`, `context API` and `Promise`
 
