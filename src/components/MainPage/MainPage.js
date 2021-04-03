@@ -1,4 +1,4 @@
-import styles from "../ModalComonent/ModalContainer.module.sass";
+import styles from "./MainPage.module.sass";
 import React, {useContext} from "react";
 import {ModalContext} from "../../ModalContext";
 
