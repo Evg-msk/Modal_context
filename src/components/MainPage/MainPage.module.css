@@ -1,0 +1,36 @@
+.title {
+  margin-top: 50px;
+  text-align: center;
+  font-size: 24px;
+}
+
+.button_show {
+  display: block;
+  width: 250px;
+  height: 50px;
+  background-color: #c2b391;
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  margin: 190px auto;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.button_show:hover {
+  filter: drop-shadow(2px 2px 5px #004A);
+  transform: scaleY(1.05);
+  background-color: #41eda8;
+}
+.button_show:focus {
+  outline: none;
+}
+
+.success {
+  color: #31dc47;
+}
+
+.cancel {
+  color: #ff525c;
+}
+
+/*# sourceMappingURL=MainPage.module.css.map */

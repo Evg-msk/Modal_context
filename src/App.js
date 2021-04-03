@@ -2,57 +2,96 @@ import styles from './App.module.css'
 import {ModalContainer} from "./components/ModalComonent/ModalContainer";
 import {ModalContext} from './ModalContext';
 import React, {useState} from "react";
+import WarningModal from "./components/Modal/Modal";
+import {MainPage} from "./components/MainPage/MainPage";
+
+// const App = () => {
+//
+//     const state = {
+//         isOpen: false,
+//         isDismiss: null,
+//         result: null,
+//     };
+//     const [isOpen, setOpen] = useState(state.isOpen);
+//     const [result, setResult] = useState(state.result);
+//     const [isDismiss, setDismiss] = useState(state.isDismiss);
+//
+//     const showModal = (Component, props) => {
+//         setOpen(true);
+//         return (
+//             <Component
+//                 isOpen={isOpen}
+//                 {...props}
+//                 close={close}
+//             />
+//         );
+//     };
+//
+//     const close = result => {
+//         if(result) {
+//             setDismiss('Success')
+//         } else {
+//             setDismiss('')
+//         }
+//         setOpen(false);
+//         setResult(null);
+//         console.log(result);
+//
+//     };
+//
+//     return (
+//         <ModalContext.Provider
+//             value={{
+//                 showModal,
+//                 close,
+//                 isOpen,
+//                 setOpen,
+//                 result,
+//                 setResult,
+//                 isDismiss
+//             }}>
+//             <div className={styles.App}>
+//                 <ModalContainer/>
+//             </div>
+//         </ModalContext.Provider>
+//     );
+// };
 
 const App = () => {
-
-    const state = {
-        isOpen: false,
-        isDismiss: null,
-        result: null,
-    };
-    const [isOpen, setOpen] = useState(state.isOpen);
-    const [result, setResult] = useState(state.result);
-    const [isDismiss, setDismiss] = useState(state.isDismiss);
+    const [modalProps, setModalProps] = useState({});
+    const [resolvingFunctions, setResolvingPromiseFunction] = useState([]);
+    const [confirmationResult, setConfirmationResult] = useState();
 
     const showModal = (Component, props) => {
-        setOpen(true);
-        return (
-            <Component
-                isOpen={isOpen}
-                {...props}
-                close={close}
-            />
-        );
+        setModalProps({ Component, props, isOpened: true });
+
+        return new Promise(resolve => {
+            setResolvingPromiseFunction([resolve])
+        })
     };
 
-    const close = result => {
-        if(result) {
-            setDismiss('Success')
-        } else {
-            setDismiss('')
-        }
-        setOpen(false);
-        setResult(null);
-        console.log(result);
+    const closeModal = result => {
+        setModalProps({ isOpened: false });
+        resolvingFunctions.map(resolve => resolve(result))
+    };
 
+    const showWarning = async () => {
+        const result = await showModal(WarningModal, { text: "Are you ready?" });
+        setConfirmationResult(result ? "success" : "cancel")
     };
 
     return (
-        <ModalContext.Provider
-            value={{
-                showModal,
-                close,
-                isOpen,
-                setOpen,
-                result,
-                setResult,
-                isDismiss
-            }}>
+        <ModalContext.Provider value={{
+            modalProps,
+            confirmationResult,
+            showModal, closeModal, showWarning }}>
             <div className={styles.App}>
+                <MainPage/>
                 <ModalContainer/>
             </div>
         </ModalContext.Provider>
     );
 };
+
 
 export default App;
